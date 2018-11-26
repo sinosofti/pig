@@ -1,0 +1,111 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: pig-gateway
+#  zipkin:
+#    rabbitmq:
+#      queue: zipkin
+#  sleuth:
+#    sampler:
+#      percentage: 0.2
+
+#zuul:
+#  ignoredServices: '*'
+#  host:
+#    connect-timeout-millis: 30000
+#    socket-timeout-millis: 30000
+#  routes:
+#    pig-auth:
+#      path: /auth/**
+#      serviceId: pig-auth
+#      stripPrefix: true
+#      sensitiveHeaders:
+#    pig-upms-service:
+#      path: /admin/**
+#      serviceId: pig-upms-service
+#      stripPrefix: true
+#      sensitiveHeaders:            
+#动态路由 （数据库查）
+zuul:
+  ribbon:
+    eager-load:
+      enabled: true
+      clients: pig-auth,pig-upms-service
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
+  ratelimit:
+    key-prefix: pig-ratelimite
+    enabled: true
+    repository: REDIS
+    behind-proxy: true
+    policies:
+      pig-upms-service:
+        limit: 100
+        quota: 100
+        refresh-interval: 3
+ribbon:
+  OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
+  ReadTimeout: 5000   #负载均衡超时时间，默认值5000
+  ConnectTimeout: 3000 #ribbon请求连接的超时时间，默认值2000
+  MaxAutoRetries: 0     #对当前实例的重试次数，默认0
+  MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
+feign.hystrix.enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 1000
+      queueSizeRejectionThreshold: 800
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000        
+#认证服务器地址
+security:
+  auth:
+    server: http://localhost:3000
+  encode:
+    key: '1234567887654321' #必须16位
+  validate:
+    code: true #验证码（含有短信验证码）可以设置关闭
+    preview: false
+  sessions: stateless
+  oauth2:
+    client:
+      client-id: pig
+      client-secret: pig
+    resource:
+      jwt:
+         key-uri: ${security.auth.server}/oauth/token_key #解析jwt令牌所需要密钥的地址
+#logging:
+#  config: classpath:logback-spring.xml
+ignore:
+  urls:
+    - /mobile/**
+    - /auth/**
+    - /admin/code/*
+    - /admin/smsCode/*
+    - /admin/user/info
+    - /admin/menu/userMenu
+    - /swagger-resources/**
+    - /swagger-ui.html
+    - /*/v2/api-docs
+    - /swagger/api-docs
+    - /webjars/**
+  clients:
+    - app
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://pig:gip6666@localhost:1025/eureka
+    registry-fetch-interval-seconds: 10
+

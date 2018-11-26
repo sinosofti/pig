@@ -1,0 +1,23 @@
+server:
+  port: 4060
+spring:
+  application:
+    name: pig-daemon-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: ENC(gc16brBHPNq27HsjaULgKGq00Rz6ZUji)
+    url: jdbc:mysql://127.0.0.1:3306/pig?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  elasticjob:
+    zookeeper:
+      server-lists: 127.0.0.1:2181
+      namespace: pig-daemon
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://pig:gip6666@localhost:1025/eureka
+    registry-fetch-interval-seconds: 10

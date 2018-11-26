@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pig.admin.mapper.SysUserMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.github.pig.admin.model.entity.SysUser">
+		<id column="user_id" property="userId" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="phone" property="phone" />
+		<result column="avatar" property="avatar" />
+		<result column="salt" property="salt" />
+		<result column="dept_id" property="deptId" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="del_flag" property="delFlag" />
+	</resultMap>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseUserViewResultMap"
+		type="com.github.pig.admin.model.entity.UserView">
+		<result column="ID" property="id" />
+		<result column="USERNAME" property="username" />
+		<result column="PASSWORD" property="password" />
+		<result column="ROLE" property="role" />
+		<result column="NAME" property="name" />
+		<result column="TELEPHONE" property="telephone" />
+		<result column="EMAIL" property="email" />
+	<!-- 	<result column="PHOTO" property="photo" /> -->
+		<result column="ORGCODE" property="orgcode" />
+		<result column="ZONECODE" property="zonecode" />
+		<result column="ADDTIME" property="addtime" />
+		<result column="STATE" property="state" />
+		<result column="MODYTIME" property="modytime" />
+		<result column="KEY" property="key" />
+		<result column="ZB" property="zb" />
+		<result column="DATA_SOURCE" property="dataSource" />
+		<result column="DEPARTMENT" property="department" />
+		<result column="ADD_DEPARTMENT" property="addDepartment" />
+		<result column="MODY_DEPARTMENT" property="modyDepartment" />
+		<result column="ADD_ORG" property="addOrg" />
+		<result column="MODY_USER" property="modyUser" />
+		<result column="MODY_ORG" property="modyOrg" />
+		<result column="ADD_USER" property="addUser" />
+		<result column="POSITION" property="position" />
+		<result column="TITLE" property="title" />
+		<result column="LINKED_ID" property="linkedId" />
+		<result column="LINE_DEP" property="lineDep" />
+		<!-- <result column="HEAD" property="head" /> -->
+		<result column="MODY_SOURCE" property="modySource" />
+	</resultMap>
+
+	<!-- userVo结果集 -->
+	<resultMap id="userVoResultMap"
+		type="com.github.pig.common.vo.UserVO">
+		<id column="user_id" property="userId" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="phone" property="phone" />
+		<result column="avatar" property="avatar" />
+		<result column="ucreate_time" property="createTime" />
+		<result column="uupdate_time" property="updateTime" />
+		<result column="udel_flag" property="delFlag" />
+		<result column="deptId" property="deptId" />
+		<result column="deptName" property="deptName" />
+		<collection property="roleList"
+			ofType="com.github.pig.common.vo.SysRole">
+			<id column="role_id" property="roleId" />
+			<result column="role_name" property="roleName" />
+			<result column="role_code" property="roleCode" />
+			<result column="role_desc" property="roleDesc" />
+			<result column="rcreate_time" property="createTime" />
+			<result column="rupdate_time" property="updateTime" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, USERNAME, PASSWORD, ROLE, NAME, TELEPHONE, EMAIL,
+		PHOTO, ORGCODE, ZONECODE, ADDTIME, STATE, MODYTIME, KEY, ZB,
+		DATA_SOURCE, DEPARTMENT, ADD_DEPARTMENT, MODY_DEPARTMENT, ADD_ORG,
+		MODY_USER, MODY_ORG, ADD_USER, POSITION, TITLE, LINKED_ID, LINE_DEP,
+		HEAD, MODY_SOURCE
+	</sql>
+	<!-- com.github.pig.common.vo.UserView结果集 -->
+	<resultMap id="userViewResultMap"
+		type="com.github.pig.common.vo.UserView">
+		<result column="ID" property="id" />
+		<result column="USERNAME" property="username" />
+		<result column="PASSWORD" property="password" />
+		<result column="ROLE" property="role" />
+		<result column="NAME" property="name" />
+		<result column="TELEPHONE" property="telephone" />
+		<result column="EMAIL" property="email" />
+		<result column="PHOTO" property="photo" />
+		<result column="ORGCODE" property="orgcode" />
+		<result column="ZONECODE" property="zonecode" />
+		<result column="ADDTIME" property="addtime" />
+		<result column="STATE" property="state" />
+		<result column="MODYTIME" property="modytime" />
+		<result column="KEY" property="key" />
+		<result column="ZB" property="zb" />
+		<result column="DATA_SOURCE" property="dataSource" />
+		<result column="DEPARTMENT" property="department" />
+		<result column="ADD_DEPARTMENT" property="addDepartment" />
+		<result column="MODY_DEPARTMENT" property="modyDepartment" />
+		<result column="ADD_ORG" property="addOrg" />
+		<result column="MODY_USER" property="modyUser" />
+		<result column="MODY_ORG" property="modyOrg" />
+		<result column="ADD_USER" property="addUser" />
+		<result column="POSITION" property="position" />
+		<result column="TITLE" property="title" />
+		<result column="LINKED_ID" property="linkedId" />
+		<result column="LINE_DEP" property="lineDep" />
+		<!-- <result column="HEAD" property="head" /> -->
+		<result column="MODY_SOURCE" property="modySource" />
+		<collection property="roleList"
+			ofType="com.github.pig.common.vo.Role">
+			<result column="ID" property="id" />
+			<result column="ROLENAME" property="name" />
+			<result column="NOTE" property="note" />
+			<result column="STATE" property="state" />
+			<result column="MODYTIME" property="modytime" />
+			<result column="DATA_SOURCE" property="dataSource" />
+			<result column="ADD_USER" property="addUser" />
+			<result column="ROLE_KEY" property="roleKey" />
+			<result column="SYSID" property="sysid" />
+			<result column="ADD_ZONE" property="addZone" />
+			<result column="ADD_ORGCODE" property="addOrgcode" />
+		</collection>
+	</resultMap>
+
+	<sql id="selectUserVo">
+		SELECT
+		t.user_id,
+		t.username,
+		t.password,
+		t.salt,
+		t.phone,
+		t.avatar,
+		t.dept_id,
+		t.create_time AS ucreate_time,
+		t.update_time AS
+		uupdate_time,
+		t.del_flag AS udel_flag,
+		t.dept_id AS deptId,
+		r.role_id,
+		r.role_name,
+		r.role_code,
+		r.role_desc,
+		r.create_time AS rcreate_time,
+		r.update_time AS rupdate_time
+		FROM
+		sys_user t
+		LEFT JOIN sys_user_role ur
+		ON ur.user_id = t.user_id
+		LEFT JOIN sys_role r ON r.role_id =
+		ur.role_id
+	</sql>
+	<select id="selectUserVoByUsername" resultMap="userVoResultMap">
+		<include refid="selectUserVo" />
+		WHERE t.username = #{username}
+	</select>
+	<select id="selectUserViewByUsername"
+		resultMap="userViewResultMap">
+		select u.*,
+		m.id , m.name as ROLENAME , m.note , m.state , m. add_user , m.role_key ,
+		m.sysid
+		from perm_users u,(select * from perm_role
+		n where id in (
+		select * from
+		table (split((select role from perm_users
+		where username
+		=#{username}))))) m
+		WHERE u.username =#{username}
+	</select>
+
+	<select id="selectUserVoByMobile" resultMap="userVoResultMap">
+		<include refid="selectUserVo" />
+		WHERE user.phone = #{mobile}
+	</select>
+
+	<select id="selectUserVoByOpenId" resultMap="userVoResultMap">
+		<include refid="selectUserVo" />
+		WHERE user.salt = #{openId}
+	</select>
+
+	<select id="selectUserVoById" resultMap="userViewResultMap">
+		select * from perm_users t WHERE
+		t.id = #{id}
+		<!-- SELECT t.user_id, t.username, t.password, t.salt, t.phone, t.avatar, 
+			t.create_time AS ucreate_time, t.update_time AS uupdate_time, t.del_flag 
+			AS udel_flag, r.role_id, r.role_name, r.role_code, r.role_desc, r.create_time 
+			AS rcreate_time, r.update_time AS rupdate_time, d.name AS deptName, d.dept_id 
+			AS deptId FROM sys_user t LEFT JOIN sys_user_role ur ON ur.user_id = t.user_id 
+			LEFT JOIN sys_role r ON r.role_id = ur.role_id LEFT JOIN sys_dept d ON d.dept_id 
+			= t.dept_id WHERE t.user_id = #{id} -->
+	</select>
+
+	<select id="selectUserVoPageDataScope" resultMap="BaseUserViewResultMap">
+	SELECT U.ID,
+	U.USERNAME,
+	U.PASSWORD,
+	U.ROLE,
+	U.NAME NAME,
+	U.TELEPHONE,
+	U.EMAIL,
+	T1.ORGNAME AS ORGCODE,
+	(SELECT Z.CNNAME FROM ZONECODE Z WHERE
+	Z.ZONECODE = U.ZONECODE) AS ZONECODE,
+	U.ADDTIME,
+	(SELECT D.NAME
+	FROM DD_COMMON D
+	WHERE D.TYPE =
+	'PUB_STATE'
+	AND D.CODE = U.STATE) AS STATE,
+	U.MODYTIME,
+	U.KEY,
+	(SELECT T.NAME
+	FROM
+	DD_COMMON T
+	WHERE T.CODE = U.ZB
+	AND T.TYPE = 'ZB') AS ZB,
+	U.STATE AS
+	STATUS,
+	(SELECT TO_CHAR(WM_CONCAT(D.NAME))
+	FROM DEPARTMENT D
+	WHERE D.ID
+	IN (SELECT * FROM TABLE(SPLIT(U.DEPARTMENT)))) DEPARTMENT,
+	(SELECT
+	D.NAME
+	FROM DD_COMMON D
+	WHERE D.CODE = U.POSITION
+	AND D.TYPE =
+	'POSITION') POSITION,
+	(SELECT D.NAME
+	FROM DD_COMMON D
+	WHERE D.CODE =
+	U.TITLE
+	AND D.TYPE = 'TITLE') TITLE
+	FROM PERM_USERS U, ORGANISE T1
+	WHERE
+	U.ORGCODE = T1.ORGCODE(+)
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	AND U.ZONECODE LIKE
+	zoneheader('41010000')||'%'
+	AND T1.ORGCODE='410102035'
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	AND 1=1
+	/**AND 1=1**/
+	ORDER BY
+	T1.DIRECTORGCODE, T1.ORDERS, U.NAME
+	<!-- 	SELECT t.user_id, t.username, t.password, t.salt, t.phone, t.avatar, 
+			t.create_time AS ucreate_time, t.update_time AS uupdate_time, t.del_flag 
+			AS udel_flag, r.role_id, r.role_name, r.role_code, r.role_desc, r.create_time 
+			AS rcreate_time, r.update_time AS rupdate_time, d.name AS deptName, d.dept_id 
+			AS deptId FROM sys_user t LEFT JOIN sys_user_role ur ON ur.user_id = t.user_id 
+			LEFT JOIN sys_role r ON r.role_id = ur.role_id LEFT JOIN sys_dept d ON d.dept_id 
+			= t.dept_id WHERE r.del_flag = 0
+	<if test="username != null and username 
+			!= ''"> and t.username LIKE CONCAT('%',#{username},'%') </if>
+	ORDER BY t.create_time
+	DESC -->
+	</select>
+
+</mapper>
