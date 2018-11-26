@@ -42,6 +42,7 @@ public class SysUser extends Model<SysUser> {
 
     private static final long serialVersionUID = 1L;
 
+    
     /**
      * 主键ID
      */
@@ -95,19 +96,4 @@ public class SysUser extends Model<SysUser> {
         return this.userId;
     }
 
-    @Override
-    public String toString() {
-        return "SysUser{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", delFlag='" + delFlag + '\'' +
-                ", phone='" + phone + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", deptId=" + deptId +
-                '}';
-    }
 }
